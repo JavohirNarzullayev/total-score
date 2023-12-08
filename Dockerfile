@@ -1,7 +1,12 @@
-FROM openjdk:17
-COPY storage-api/target/ /tmp/
-WORKDIR /tmp/
-EXPOSE $SERVER_PORT
-#HEALTHCHECK --interval=60s --timeout=10s --start-period=30s \
-#CMD curl --fail http://localhost:$SERVER_PORT/open/_healthcheck || exit 1
-ENTRYPOINT exec java  $JAVA_OPTS -jar /tmp/*.jar
+FROM maven:3.8.4-openjdk-17 as maven-builder
+COPY src /app/src
+COPY pom.xml /app
+
+RUN mvn -f /app/pom.xml clean package -DskipTests
+FROM openjdk:17-alpine
+
+COPY --from=maven-builder app/target/total-score-1.0.jar /app-service/total-score-1.0.jar
+WORKDIR /app-service
+
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","total-score-1.0.jar"]

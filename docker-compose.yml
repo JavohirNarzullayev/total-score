@@ -1,36 +1,33 @@
-version: "3.0"
+version: "3.8"
 services:
-  elasticsearch:
-    container_name: elasticsearch-container
-    image: elasticsearch:7.17.5
-    environment:
-      - xpack.security.enabled=false
-      - "discovery.type=single-node"
-    networks:
-      - es-net
+  app:
+    image: 'total-score:latest'
+    build:
+      context: .
+    container_name: total-score
     ports:
-      - "9200:9200"
-  kibana:
-    container_name: kibana-container
-    image: docker.elastic.co/kibana/kibana:7.17.5
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    networks:
-      - es-net
+      - "8080:8080"
     depends_on:
-      - elasticsearch
-    ports:
-      - "5601:5601"
-  apm-server:
-    image: docker.elastic.co/apm/apm-server:7.17.5
+      - db
     environment:
-      - output.elasticsearch.hosts=["elasticsearch:9200"]
+      - DB_URL=jdbc:postgresql://db:5432/total_score_db
+      - DB_USERNAME=total_score_user
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    restart: on-failure
     ports:
-      - "8200:8200"
-    depends_on:
-      - elasticsearch
-    networks:
-      - es-net
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: total_score_user
+      POSTGRES_PASSWORD: Zxcvbn123
+      POSTGRES_DB: total_score_db
 networks:
-  es-net:
+  db:
     driver: bridge
+
+volumes:
+  postgres-data:

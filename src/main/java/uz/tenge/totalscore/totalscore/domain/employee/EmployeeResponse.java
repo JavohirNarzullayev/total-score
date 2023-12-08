@@ -1,4 +1,8 @@
 package uz.tenge.totalscore.totalscore.domain.employee;
 
-public class EmployeeService {
+import lombok.Data;
+
+@Data
+public class EmployeeResponse {
+    private String fio;
 }

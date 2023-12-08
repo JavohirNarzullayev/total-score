@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TotalScoreApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TotalScoreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TotalScoreApplication.class, args);
+    }
 
 }

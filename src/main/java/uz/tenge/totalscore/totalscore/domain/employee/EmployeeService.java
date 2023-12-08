@@ -1,4 +1,10 @@
 package uz.tenge.totalscore.totalscore.domain.employee;
 
-public class Employee {
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class EmployeeService {
+
 }

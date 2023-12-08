@@ -1,4 +1,4 @@
 package uz.tenge.totalscore.totalscore.domain.event;
 
-public class EventPayload {
+public class EventResponse {
 }
