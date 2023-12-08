@@ -1,0 +1,9 @@
+${AnsiColor.RED}  ███████╗ ${AnsiColor.CYAN} ████████╗  ██████╗  ██████╗   █████╗   ██████╗   ███████╗     █████╗  ██████╗  ██╗
+${AnsiColor.RED}  ██╔════╝ ${AnsiColor.CYAN} ╚══██╔══╝ ██╔═══██╗ ██╔══██╗ ██╔══██╗ ██╔════╝   ██╔════╝    ██╔══██╗ ██╔══██╗ ██║
+${AnsiColor.RED}  ███████╗ ${AnsiColor.CYAN}    ██║    ██║   ██║ ██████╔╝ ███████║ ██║  ███╗  █████╗      ███████║ ██████╔╝ ██║
+${AnsiColor.RED}  ╚════██║ ${AnsiColor.CYAN}    ██║    ██║   ██║ ██╔══██╗ ██╔══██║ ██║   ██║  ██╔══╝      ██╔══██║ ██╔═══╝  ██║
+${AnsiColor.RED}  ███████║ ${AnsiColor.CYAN}    ██║    ╚██████╔╝ ██║  ██║ ██║  ██║ ╚██████╔╝  ███████╗    ██║  ██║ ██║      ██║
+${AnsiColor.RED}  ╚══════╝ ${AnsiColor.CYAN}    ╚═╝     ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═════╝   ╚══════╝    ╚═╝  ╚═╝ ╚═╝      ╚═╝
+
+
+${AnsiColor.BLUE}:: ${spring.application.name} 🤓  :: Running  Spring Boot ${spring-boot.version} ::${AnsiColor.RED}
