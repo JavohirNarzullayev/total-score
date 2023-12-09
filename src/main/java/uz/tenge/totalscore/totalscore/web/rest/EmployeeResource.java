@@ -1,12 +1,11 @@
 package uz.tenge.totalscore.totalscore.web.rest;
 
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import uz.tenge.totalscore.totalscore.domain.event.EventService;
+import org.springframework.web.bind.annotation.*;
+import uz.tenge.totalscore.totalscore.domain.employee.EmployeeMapper;
+import uz.tenge.totalscore.totalscore.domain.employee.EmployeePayload;
+import uz.tenge.totalscore.totalscore.domain.employee.EmployeeResponse;
+import uz.tenge.totalscore.totalscore.domain.employee.EmployeeService;
 
 import java.util.List;
 
@@ -14,17 +13,31 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/v1/event")
 public class EmployeeResource {
-    private final EventService eventService;
+    private final EmployeeService employeeService;
 
     @GetMapping("/list")
-    public List<?> events(){
-        return eventService.getEvents();
+    public List<EmployeeResponse> events(){
+        return EmployeeMapper.toResponse(employeeService.getEvents());
     }
 
     @GetMapping("/{id}")
-    public Object getById(
+    public EmployeeResponse getById(
             @PathVariable Long id
     ){
-        return eventService.getById(id);
+        return EmployeeMapper.toResponse(employeeService.getById(id));
+    }
+
+    @PostMapping
+    public void create(
+            @RequestBody EmployeePayload payload
+    ){
+        employeeService.save(payload);
+    }
+    @PutMapping("/{id}")
+    public EmployeeResponse update(
+            @PathVariable Long id,
+            @RequestBody EmployeePayload payload
+    ){
+        return EmployeeMapper.toResponse(employeeService.update(id, payload));
     }
 }

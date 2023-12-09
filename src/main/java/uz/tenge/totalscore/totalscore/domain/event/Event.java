@@ -17,4 +17,5 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_id_seq")
     @Column(name = "id")
     private Long id;
+    private String name;
 }

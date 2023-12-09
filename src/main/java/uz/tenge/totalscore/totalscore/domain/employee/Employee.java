@@ -17,4 +17,5 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id_seq")
     @Column(name = "id")
     private Long id;
+    private String fio;
 }

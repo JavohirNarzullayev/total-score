@@ -32,3 +32,10 @@ spring:
     serialization:
       fail-on-empty-beans: false
     property-naming-strategy: SNAKE_CASE
+
+#Swagger-UI
+springdoc:
+  swagger-ui:
+    path: /v1/swagger/index.html
+  api-docs:
+    path: /v1/swagger/api-docs
