@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/v1/event")
 public class EventResource {
     private final EventService eventService;
 
@@ -39,4 +40,5 @@ public class EventResource {
     ) {
         return EventMapper.toResponse(eventService.update(id, payload));
     }
+//SELECT
 }

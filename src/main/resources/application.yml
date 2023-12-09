@@ -31,7 +31,6 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
-    property-naming-strategy: SNAKE_CASE
 
 #Swagger-UI
 springdoc:

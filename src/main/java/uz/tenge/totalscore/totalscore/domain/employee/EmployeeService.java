@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.tenge.totalscore.totalscore.repository.EmployeeRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.Tuple;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +14,31 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EntityManager em;
+
     public List<Employee> getEvents() {
         return employeeRepository.findAll();
+    }
+
+    public List<CalculateResponse> getCalculateResult() {
+        String sql = """
+                SELECT e.ID,
+                       e.FIO,
+                       2                                                                                  as event,
+                       coalesce(sum(p.amount), 0)                                                         as paid,
+                       avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1)                              as total_avg,
+                       coalesce(sum(p.amount), 0) - avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1) as result
+                FROM employee e
+                         LEFT JOIN payment p on e.id = p.employee_id/* and p.event_id = 2*/
+                GROUP BY e.id;
+                """;
+        Query query = em.createNativeQuery(sql, Tuple.class);
+        @SuppressWarnings("unchecked")
+        List<Tuple> resultList = (List<Tuple>) query.getResultList();
+        return resultList.stream()
+                .map(CalculateResponse::new)
+                .toList();
+
     }
 
     public Employee getById(Long id) {

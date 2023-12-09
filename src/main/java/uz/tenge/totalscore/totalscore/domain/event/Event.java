@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -18,4 +19,15 @@ public class Event {
     @Column(name = "id")
     private Long id;
     private String name;
+    private BigDecimal amount;
+    private BigDecimal paid = BigDecimal.ZERO;
+
+
+    public BigDecimal sum(){
+        return this.amount.subtract(paid);
+    }
+    public void pay(BigDecimal paid){
+        this.paid = this.paid.add(paid);
+    }
+
 }

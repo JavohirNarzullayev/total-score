@@ -16,6 +16,7 @@ public class EventMapper {
         if (entity == null) return null;
         var response = new EventResponse();
         response.setId(entity.getId());
+        response.setAmount(entity.getAmount());
         response.setName(entity.getName());
         return response;
     }

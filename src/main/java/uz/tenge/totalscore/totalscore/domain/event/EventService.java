@@ -2,8 +2,10 @@ package uz.tenge.totalscore.totalscore.domain.event;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.tenge.totalscore.totalscore.repository.EventRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +27,25 @@ public class EventService {
     }
 
     public Event update(Long id, EventPayload payload) {
-        Event event = getById(id);
+        var event = getById(id);
         event.setName(payload.getName());
+        event.setAmount(payload.getAmount());
         return eventRepository.save(event);
     }
 
+    @Transactional
+    public void payToEvent(Event event, BigDecimal amount){
+        if (event.sum().compareTo(amount) < 0) {
+            throw new RuntimeException("The payment amount  shouldn't be greater than event payment");
+        }
+        event.pay(amount);
+        eventRepository.save(event);
+    }
+
     public Event save(EventPayload payload) {
-        Event event = new Event();
+        var event = new Event();
         event.setName(payload.getName());
+        event.setAmount(payload.getAmount());
         return eventRepository.save(event);
     }
 }
