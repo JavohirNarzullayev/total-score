@@ -8,5 +8,5 @@ FROM openjdk:17-alpine
 COPY --from=maven-builder app/target/total-score-1.0.jar /app-service/total-score-1.0.jar
 WORKDIR /app-service
 
-EXPOSE 8081
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","total-score-1.0.jar"]
