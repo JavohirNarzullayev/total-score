@@ -6,7 +6,7 @@ services:
       context: .
     container_name: total-score
     ports:
-      - "8081:8085"
+      - "8081:8080"
     depends_on:
       - db
     environment:

@@ -1,6 +1,8 @@
 package uz.tenge.totalscore.totalscore.web.rest;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.tenge.totalscore.totalscore.domain.payment.PaymentMapper;
@@ -13,10 +15,12 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/payment")
+@Tag(name = "Payment resource",description = "Payment api for pay event")
 public class PaymentResource {
     private final PaymentService paymentService;
 
     @GetMapping("/{eventId}/list")
+    @Operation(summary = "Get payments by event id")
     public List<PaymentResponse> payments(
             @PathVariable Long eventId
     ) {
@@ -24,11 +28,13 @@ public class PaymentResource {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get payment by id")
     public PaymentResponse getById(@PathVariable Long id) {
         return PaymentMapper.toResponse(paymentService.getById(id));
     }
 
     @PostMapping
+    @Operation(summary = "Pay for event")
     public PaymentResponse pay(
             @RequestBody PaymentPayload payload
     ) {

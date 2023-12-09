@@ -1,5 +1,7 @@
 package uz.tenge.totalscore.totalscore.web.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.tenge.totalscore.totalscore.domain.employee.EmployeeMapper;
@@ -12,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/employee")
+@Tag(name = "Employee resource",description = "Manage employee")
 public class EmployeeResource {
     private final EmployeeService employeeService;
 
@@ -21,6 +24,7 @@ public class EmployeeResource {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get employee by id")
     public EmployeeResponse getById(
             @PathVariable Long id
     ){
@@ -28,12 +32,14 @@ public class EmployeeResource {
     }
 
     @PostMapping
+    @Operation(summary = "Create new employee")
     public void create(
             @RequestBody EmployeePayload payload
     ){
         employeeService.save(payload);
     }
     @PutMapping("/{id}")
+    @Operation(summary = "Update employee")
     public EmployeeResponse update(
             @PathVariable Long id,
             @RequestBody EmployeePayload payload

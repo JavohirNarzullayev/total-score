@@ -1,6 +1,7 @@
 package uz.tenge.totalscore.totalscore.web.rest;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.tenge.totalscore.totalscore.domain.event.EventMapper;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/event")
+@Tag(name = "Event resource")
 public class EventResource {
     private final EventService eventService;
 
@@ -40,5 +42,4 @@ public class EventResource {
     ) {
         return EventMapper.toResponse(eventService.update(id, payload));
     }
-//SELECT
 }
