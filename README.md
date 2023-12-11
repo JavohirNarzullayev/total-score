@@ -14,3 +14,12 @@ To start of project need to install [docker](https://docs.docker.com/engine/inst
 ## Usage
 After successfully start docker containers you may see project is running.
 To see all resource enter to [swagger](http://localhost:8081/v1/swagger/swagger-ui/index.html#/)
+
+* Add participant
+![](images/img.png)
+* Add event with amount
+![](images/event.png)
+* Payment for event
+![](images/img_2.png)
+* Calculate
+![](images/img_1.png)
