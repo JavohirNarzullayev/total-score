@@ -15,7 +15,7 @@ import java.util.List;
 public class CalculateResource {
     private final EmployeeService employeeService;
 
-    @GetMapping("/list")
+    @GetMapping
     @Operation(summary = "Fee employee")
     public List<CalculateResponse> calculate(){
         return employeeService.getCalculateResult();

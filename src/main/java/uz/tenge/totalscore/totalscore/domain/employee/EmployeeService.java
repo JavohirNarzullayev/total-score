@@ -29,7 +29,7 @@ public class EmployeeService {
                        avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1)                              as total_avg,
                        coalesce(sum(p.amount), 0) - avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1) as result
                 FROM employee e
-                         LEFT JOIN payment p on e.id = p.employee_id/* and p.event_id = 2*/
+                LEFT JOIN payment p on e.id = p.employee_id
                 GROUP BY e.id;
                 """;
         Query query = em.createNativeQuery(sql, Tuple.class);
