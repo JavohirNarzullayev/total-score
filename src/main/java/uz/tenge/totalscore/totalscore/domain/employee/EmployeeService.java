@@ -20,7 +20,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public List<CalculateResponse> getCalculateResult() {
+    @SuppressWarnings("all")
+    public List<CalculateResponse> getCalculateResult(Long eventId) {
+        String condition = "";
         String sql = """
                 SELECT e.ID,
                        e.FIO,
@@ -28,16 +30,18 @@ public class EmployeeService {
                        avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1)                              as total_avg,
                        coalesce(sum(p.amount), 0) - avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1) as result
                 FROM employee e
-                LEFT JOIN payment p on e.id = p.employee_id
+                LEFT JOIN payment p on e.id = p.employee_id $condition
                 GROUP BY e.id;
                 """;
-        Query query = em.createNativeQuery(sql, Tuple.class);
-        @SuppressWarnings("unchecked")
-        List<Tuple> resultList = (List<Tuple>) query.getResultList();
+        if (eventId != null) condition += "and p.event_id=:eventId";
+        sql = sql.replace("$condition", condition);
+        var query = em.createNativeQuery(sql, Tuple.class);
+        if (eventId !=null) query.setParameter("eventId", eventId);
+
+        var resultList = (List<Tuple>) query.getResultList();
         return resultList.stream()
                 .map(CalculateResponse::new)
                 .toList();
-
     }
 
     public Employee getById(Long id) {

@@ -17,8 +17,10 @@ public class CalculateResource {
 
     @GetMapping
     @Operation(summary = "Fee employee")
-    public List<CalculateResponse> calculate(){
-        return employeeService.getCalculateResult();
+    public List<CalculateResponse> calculate(
+            @RequestParam(required = false) Long eventId
+    ){
+        return employeeService.getCalculateResult(eventId);
     }
 
 }
