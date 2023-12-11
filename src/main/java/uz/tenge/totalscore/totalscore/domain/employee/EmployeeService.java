@@ -24,7 +24,6 @@ public class EmployeeService {
         String sql = """
                 SELECT e.ID,
                        e.FIO,
-                       2                                                                                  as event,
                        coalesce(sum(p.amount), 0)                                                         as paid,
                        avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1)                              as total_avg,
                        coalesce(sum(p.amount), 0) - avg(coalesce(sum(p.amount), 0)) OVER (PARTITION BY 1) as result
