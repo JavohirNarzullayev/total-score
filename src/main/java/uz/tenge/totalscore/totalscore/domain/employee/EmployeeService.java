@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import uz.tenge.totalscore.totalscore.repository.EmployeeRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.Tuple;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -49,48 +48,35 @@ public class EmployeeService {
                 .toList();
     }
 
-    @Getter
-    @Setter
-    public static class Dto{
-        private BigInteger id;
-        private String fio;
-        private BigDecimal result;
-        public List<Fee> fees;
 
-        @Getter
-        @Setter
-        public static class Fee{
-            private BigInteger id;
-            private String fio;
-            private BigDecimal amount;
-        }
-    }
 
-    public List<Dto> getCalculateResult() {
-        var list = getCalculateResult(null);
+    public List<FeesResponse> getFees(Long eventId) {
+        var list = getCalculateResult(eventId);
         var tempAmount = BigDecimal.ZERO;
-        List<Dto> dtos = new ArrayList<>();
+        List<FeesResponse> dtos = new ArrayList<>();
         for (var response : list) {
-            var dto = new Dto();
+            var dto = new FeesResponse();
             dto.setId(response.getId());
             dto.setFio(response.getFio());
             dto.setResult(response.getResult());
 
             tempAmount = response.getResult();
-            List<Dto.Fee> fees = new ArrayList<>();
+            List<FeesResponse.Loan> fees = new ArrayList<>();
 
             var participants = list.stream()
                     .filter(calculateResponse -> !calculateResponse.getId().equals(response.getId()))
                     .toList();
             for (var participant : participants) {
-                Dto.Fee fee = new Dto.Fee();
+                var fee = new FeesResponse.Loan();
                 fee.setId(participant.getId());
                 fee.setFio(participant.getFio());
 
                 var feeTo = BigDecimal.ZERO;
 
-                boolean condition = tempAmount.compareTo(BigDecimal.ZERO) < 0 && participant.getResult().compareTo(BigDecimal.ZERO) > 0;
-                if (condition) {
+                int compareTo = tempAmount.compareTo(BigDecimal.ZERO);
+                int participantCompare = participant.getResult().compareTo(BigDecimal.ZERO);
+
+                if (compareTo < 0 && participantCompare > 0) {
                     var add = tempAmount.add(participant.getResult());
                     if (add.compareTo(BigDecimal.ZERO) > 0) {
                         feeTo = tempAmount;
@@ -100,7 +86,7 @@ public class EmployeeService {
                         tempAmount = add;
                     }
                 }
-                if (tempAmount.compareTo(BigDecimal.ZERO) > 0 && participant.getResult().compareTo(BigDecimal.ZERO) < 0) {
+                if (compareTo > 0 && participantCompare < 0) {
                     var add = tempAmount.add(participant.getResult());
                     if (add.compareTo(BigDecimal.ZERO) > 0) {
                         tempAmount = add;

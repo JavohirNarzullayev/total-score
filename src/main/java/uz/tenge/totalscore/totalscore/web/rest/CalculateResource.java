@@ -23,11 +23,12 @@ public class CalculateResource {
         return employeeService.getCalculateResult(eventId);
     }
 
-    @GetMapping("/per")
+    @GetMapping("/fees")
     @Operation(summary = "Each employee fee")
-    public List<EmployeeService.Dto> perCalculate(
+    public List<FeesResponse> perCalculate(
+            @RequestParam(required = false) Long eventId
     ){
-        return employeeService.getCalculateResult();
+        return employeeService.getFees(eventId);
     }
 
 
