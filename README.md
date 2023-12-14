@@ -23,3 +23,60 @@ To see all resource enter to [swagger](http://localhost:8081/v1/swagger/swagger-
 ![](images/img_2.png)
 * Calculate
 ![](images/img_1.png)
+
+*Fee participant
+```json
+[
+  {
+    "id": 3,
+    "fio": "Suxrob Ergashev",
+    "result": 20,
+    "fees": [
+      {
+        "id": 2,
+        "fio": "Ilyos Khurozov",
+        "amount": -20
+      },
+      {
+        "id": 1,
+        "fio": "Narzullayev Javohir",
+        "amount": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "fio": "Ilyos Khurozov",
+    "result": -30,
+    "fees": [
+      {
+        "id": 3,
+        "fio": "Suxrob Ergashev",
+        "amount": 20
+      },
+      {
+        "id": 1,
+        "fio": "Narzullayev Javohir",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "fio": "Narzullayev Javohir",
+    "result": 10,
+    "fees": [
+      {
+        "id": 3,
+        "fio": "Suxrob Ergashev",
+        "amount": 0
+      },
+      {
+        "id": 2,
+        "fio": "Ilyos Khurozov",
+        "amount": -10
+      }
+    ]
+  }
+]
+```
