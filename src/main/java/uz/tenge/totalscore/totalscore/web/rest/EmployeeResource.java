@@ -20,7 +20,7 @@ public class EmployeeResource {
 
     @GetMapping("/list")
     public List<EmployeeResponse> events(){
-        return EmployeeMapper.toResponse(employeeService.getEvents());
+        return EmployeeMapper.toResponse(employeeService.getEmployee());
     }
 
     @GetMapping("/{id}")

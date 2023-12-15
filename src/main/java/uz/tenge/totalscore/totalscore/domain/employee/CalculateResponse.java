@@ -1,12 +1,16 @@
 package uz.tenge.totalscore.totalscore.domain.employee;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Tuple;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CalculateResponse {
     private BigInteger id;
     private String fio;
