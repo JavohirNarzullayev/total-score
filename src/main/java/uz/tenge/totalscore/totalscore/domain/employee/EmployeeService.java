@@ -46,8 +46,9 @@ public class EmployeeService {
 
 
     public List<FeesResponse> getFees(Long eventId) {
-        List<Employee> employee = getEmployee();
         List<CalculateResponse> calculateResponses = getCalculateResult(eventId);
+        if (calculateResponses.isEmpty()) return new ArrayList<>();
+        List<Employee> employee = getEmployee();
 
         LinkedList<FeesResponse> haveToGets = new LinkedList<>();
         LinkedList<FeesResponse> haveToGives = new LinkedList<>();
